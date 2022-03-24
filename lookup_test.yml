@@ -1,0 +1,21 @@
+---
+- name: Basis Theory Lookup Pluing Test
+  gather_facts: false
+  hosts: all
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Create File and Contents from Lookup
+      copy:
+        dest: /tmp/my.properties
+        content: "{{ lookup('basistheory', '{{my_properties_file}}') | community.general.json_query('data') | b64decode }}"
+
+    - name: Just in time configure local Server Fact Variable
+      set_fact:
+        my_api_key: "{{ lookup('basistheory', '{{my_api_key}}') | community.general.json_query('data') }}"
+
+    - name: Write Template File
+      template:
+        src: lookup_test.j2
+        dest: /tmp/lookup_test.cfg
+

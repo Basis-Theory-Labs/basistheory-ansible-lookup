@@ -23,8 +23,8 @@ class LookupModule(LookupBase):
 
         # Defining client wide api_key
         configuration = basistheory.Configuration(
-            host='https://api.basistheory.com',
-            api_key=os.environ.get('BT_API_KEY')
+            host = 'https://api.basistheory.com',
+            api_key = os.environ.get('BT_API_KEY')
         )
 
         with basistheory.ApiClient(configuration) as api_client:
